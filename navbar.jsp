@@ -1,0 +1,89 @@
+<%@ page import="comUser.UserDetails" %>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom navbar-custom" >
+    <a class="navbar-brand" href="#"><i class="fa fa-sticky-note" aria-hidden="true"></i>&nbsp;ENotes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.jsp"><i class="fa fa-home" aria-hidden="true">Home</i><span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+  <% UserDetails us = (UserDetails)session.getAttribute("user"); %>
+          
+          <a class="nav-link" href='<%= us!=null?"addNotes.jsp":"Login.jsp" %>'><i class="fa fa-plus-circle" aria-hidden="true"></i>Add Notes</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="#"><i class="fa fa-address-book-o" aria-hidden="true"></i>
+            Show Notes</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <%  if(us!=null)  { %>
+        <a class="btn btn-light my-2 my-sm-0 mr-2"  type="submit" href="Login.jsp" data-toggle="modal" data-target="#exampleModal" ><i class="fa fa-sign-in" aria-hidden="true"></i><%= us.getName() %></a>
+        <a class="btn btn-light my-2 my-sm-0" type="submit" href="Register.jsp"><i class="fa fa-user" aria-hidden="true"></i>Logout</a>
+        <% } else { %> 
+        <a class="btn btn-light my-2 my-sm-0 mr-2"  type="submit" href="Login.jsp"  ><i class="fa fa-sign-in" aria-hidden="true"></i>Login</a>
+        <a class="btn btn-light my-2 my-sm-0" type="submit" href="Register.jsp"><i class="fa fa-user" aria-hidden="true"></i>Resgister</a>
+        <% } %>
+      </form>
+
+    </div>
+
+   <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-light" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal --><% if(us!=null) {  %>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+           <div class="container text-center"><i class="fa fa-user fa-3x"></i>
+          
+              <h5><%= us.getName() %></h5>
+
+              <table class="table">
+
+                  <tr>
+                    <th>UserId</th>
+                    <td><%= us.getId() %></td>
+                    
+                  </tr>
+
+                  <tr>
+                    <th>Email</th>
+                    <td><%= us.getEmail() %></td>
+                  </tr>
+
+                  <tr>
+                    <th>Password</th>
+                    <td><%= us.getPassword() %></td>
+                  </tr>
+                
+                </table>
+          </div>
+        
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+    
+  </nav>
